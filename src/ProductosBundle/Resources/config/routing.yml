@@ -1,0 +1,12 @@
+prod_add:
+    path:     /registrar/
+    defaults: { _controller: ProductosBundle:Producto:add }
+
+prod_listar:
+    path:     /listar/
+    defaults: { _controller: ProductosBundle:Producto:listar }
+
+prod_create:
+    path:     /Producto/Crear/
+    defaults: { _controller: ProductosBundle:Producto:create }
+    methods: POST

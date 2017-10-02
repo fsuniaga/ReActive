@@ -1,0 +1,131 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css" />    
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+{% for flashMessage in app.session.flashbag.get('mensaje') %}
+  <div class="alert alert-success" role="alert">
+    <div class="container">{{ flashMessage }}</div>
+  </div>
+{% endfor %}
+
+
+  <div class="main container">
+    <div class="row well">
+      <div class="col-md-6">
+        <div class="page-header">
+          <h2>Registrar Producto</h2>
+        </div>
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'role' : 'form'}}) }}
+            <h4 class="text-danger">{{ form_errors(form) }}</h4>
+
+          <fieldset>
+              <div class="form-group"
+                  {{ form_label(form.nombre) }}
+                  {{ form_widget(form.nombre, {'attr': {'class': 'form-control', 'placeholder' : 'Nombre del Producto'}}) }}
+                  <span class="text-danger">{{ form_errors(form.nombre) }}</span>
+              </div>
+
+              <div class="form-group">
+                  {{ form_label(form.codigo) }}
+                  {{ form_widget(form.codigo, {'attr': {'class': 'form-control', 'placeholder' : 'Código del Producto', 'onchange': 'cambiaCodigo()'}}) }}
+                  <span class="text-danger">{{ form_errors(form.codigo) }}</span>
+              </div>
+
+              <div class="form-group">
+                  <label id='etiquetacodigo'>Codigo de Barra/Observacion</label>
+                  {{ form_widget(form.observacioncodigo, {'attr': {'class': 'form-control', 'placeholder' : 'Observación', 'disabled':'disabled'}}) }}
+                  <span class="text-danger">{{ form_errors(form.observacioncodigo) }}</span>
+              </div>              
+
+              <div class="form-group">
+                  {{ form_label(form.tipo) }}
+                  {{ form_widget(form.tipo, {'attr': {'class': 'form-control', 'onchange': 'cambiaTipo()'}}) }}
+                  <span class="text-danger">{{ form_errors(form.tipo) }}</span>
+              </div>
+
+    {#           <div class="form-group">
+                  {{ form_label(form.fechavencimiento) }}
+                  {{ form_widget(form.fechavencimiento, {'attr': {'class': 'form-date'}}) }}
+                  <span class="text-danger">{{ form_errors(form.fechavencimiento) }}</span>
+              </div> #}
+
+            <div class="form-group">
+                {{ form_label(form.fechavencimiento) }}
+                <div class='input-group date' id='datetimepicker1'> 
+{#                   {{ form_widget(form.fechavencimiento, {'attr': {'class': 'form-control',
+                       'data-provide': 'datepicker', 'data-date-format':'dd-mm-aaaa'}}) }} #}
+                    <input type='text' class="form-control" id="fechavencimiento" name="fechavencimiento" data-date-format='dd-mm-yyyy' disabled="disabled" />
+                   <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                 </div> 
+            </div>
+
+              <div class="form-group">
+                  {{ form_label(form.cantidad) }}
+                  {{ form_widget(form.cantidad, {'attr': {'class': 'form-control', 'placeholder' : 'Cantidad de Producto'}}) }}
+                  <span class="text-danger">{{ form_errors(form.cantidad) }}</span>
+              </div> 
+
+          </fieldset>
+
+            <p>
+                {{ form_widget(form.save, {'label' : 'Registrar', 'attr': {'class': 'btn btn-success'}}) }}
+            </p>  
+
+        {{ form_end(form) }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+        $( document ).ready(function() {
+            $('#fechavencimiento').datepicker();
+        });
+
+        function cambiaCodigo(){
+          if ($('#producto_codigo').val() == 'CUMPLE'){
+              $('#etiquetacodigo').html('Código de Barra');
+              $('#producto_observacioncodigo').prop('disabled', false);
+              $('#producto_observacioncodigo').prop('placeholder', 'Código de Barra');
+          }
+          else
+            if ($('#producto_codigo').val() == 'NOCUMPLE'){
+                $('#etiquetacodigo').html('Observación');
+                $('#producto_observacioncodigo').prop('disabled', false);
+                $('#producto_observacioncodigo').prop('placeholder', 'Observación');
+            } 
+            else{
+                  $('#etiquetacodigo').html('Código de Barra/Observación');
+                  $('#producto_observacioncodigo').prop('disabled', true);
+                  $('#producto_observacioncodigo').prop('placeholder', 'Código de Barra/Observación');
+              }                      
+        }
+
+        function cambiaTipo(){
+          if ($('#producto_tipo').val() == 'PERECEDERO'){
+              $('#fechavencimiento').prop('disabled', false);
+          }
+          else{
+                $('#fechavencimiento').prop('disabled', true);
+                $('#fechavencimiento').val('');
+            }                      
+        }        
+
+    </script>
+
+
+{% endblock %}
+
+
