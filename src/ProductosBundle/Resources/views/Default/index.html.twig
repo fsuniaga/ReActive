@@ -1,10 +1,5 @@
 {% extends 'layout.html.twig' %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css" />    
-{% endblock %}
-
 {% block body %}
     {{ parent() }}
 
@@ -13,7 +8,6 @@
     <div class="container">{{ flashMessage }}</div>
   </div>
 {% endfor %}
-
 
   <div class="main container">
     <div class="row well">
@@ -45,27 +39,15 @@
 
               <div class="form-group">
                   {{ form_label(form.tipo) }}
-                  {{ form_widget(form.tipo, {'attr': {'class': 'form-control', 'onchange': 'cambiaTipo()'}}) }}
+                  {{ form_widget(form.tipo, {'attr': {'class': 'form-control'}}) }}
                   <span class="text-danger">{{ form_errors(form.tipo) }}</span>
               </div>
 
-    {#           <div class="form-group">
+              <div class="form-group">
                   {{ form_label(form.fechavencimiento) }}
-                  {{ form_widget(form.fechavencimiento, {'attr': {'class': 'form-date'}}) }}
+                  {{ form_widget(form.fechavencimiento, {'attr': {'class': 'form-date', 'format': 'dd-mm-yyyy'}}) }}
                   <span class="text-danger">{{ form_errors(form.fechavencimiento) }}</span>
-              </div> #}
-
-            <div class="form-group">
-                {{ form_label(form.fechavencimiento) }}
-                <div class='input-group date' id='datetimepicker1'> 
-{#                   {{ form_widget(form.fechavencimiento, {'attr': {'class': 'form-control',
-                       'data-provide': 'datepicker', 'data-date-format':'dd-mm-aaaa'}}) }} #}
-                    <input type='text' class="form-control" id="fechavencimiento" name="fechavencimiento" data-date-format='dd-mm-yyyy' disabled="disabled" />
-                   <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                 </div> 
-            </div>
+              </div> 
 
               <div class="form-group">
                   {{ form_label(form.cantidad) }}
@@ -87,12 +69,7 @@
 
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
-
     <script>
-        $( document ).ready(function() {
-            $('#fechavencimiento').datepicker();
-        });
 
         function cambiaCodigo(){
           if ($('#producto_codigo').val() == 'CUMPLE'){
@@ -109,7 +86,7 @@
             else{
                   $('#etiquetacodigo').html('Código de Barra/Observación');
                   $('#producto_observacioncodigo').prop('disabled', true);
-                  $('#producto_observacioncodigo').prop('placeholder', 'Código de Barra/Observación');
+                  $('#producto_observacioncodigo').prop('placeholder', 'No Aplica');
               }                      
         }
 

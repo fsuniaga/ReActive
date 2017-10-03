@@ -42,7 +42,12 @@
 				                </td>
 				                <td>{{ producto.observacioncodigo }}</td>
 				                <td>{{ producto.tipo }}</td>
-				                <td>{{ producto.fechavencimiento|date('d-m-Y') }}</td>
+				                <td>{% if producto.fechavencimiento %}
+				                		{{ producto.fechavencimiento|date('d-m-Y')  }}
+										{% else %}
+											<span title="fechavencimiento"></span>
+										{% endif %}		
+								</td>		                
 				                <td>{{ producto.cantidad }}</td>
 				            </tr>
 				        {% endfor %}
