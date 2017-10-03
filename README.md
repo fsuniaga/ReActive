@@ -40,7 +40,7 @@ parameters: <br>
     
 # ...
 
-2. Luego ejecutar los siguientes comando en la consola ubicado en el directorio del proyecto
+2. Luego ejecutar los siguientes comando en la consola ubicado en el directorio del proyecto<br>
 $ php app/console doctrine:database:create <br> 
 
 $ php app/console doctrine:schema:update --force <br> 
