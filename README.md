@@ -10,7 +10,7 @@ Proyecto creado en symfony 2, con BD de datos MySql, permite registrar un produc
 Nombre de producto <br>
 Si cumple / no cumple / no aplica, un codigo de barra <br>
 Si cumple se debe agregar el codigo de barra <br>
-No cumple debe agragar observación <br>
+No cumple debe agregar una observación <br>
 Tipo de producto (perecedero / no perecedero) <br>
 Fecha de vencimiento en caso de ser perecedero <br>
 Cantidad de productos <br>
