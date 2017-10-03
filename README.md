@@ -28,10 +28,8 @@ $ php app/console server:run <br>
 
 Crear Base de datos
 =======================
-Configurar el archivo <br> 
-# app/config/parameters.yml 
+1. Configurar el archivo app/config/parameters.yml  
 
-# This file is auto-generated during the composer install 
 parameters: <br> 
     database_host: 127.0.0.1 <br> 
     database_port: null <br> 
@@ -42,12 +40,24 @@ parameters: <br>
     mailer_host: 127.0.0.1 <br> 
     mailer_user: null <br> 
     mailer_password: null <br> 
-    secret: ThisTokenIsNotSoSecretChangeIt <br> 
-
-
+    secret: ThisTokenIsNotSoSecretChangeIt <br>
 # ...
 
-Luego ejecutar el comando en la consola 
+2. Luego ejecutar el comando en la consola 
 $ php app/console doctrine:database:create <br> 
 
 $ php app/console doctrine:schema:update --force <br> 
+
+Insertar el siguiente script en la base de datos 
+=================================================
+
+INSERT INTO `users` (`id`, `email`, `password`, `username`, `first_name`, `last_name`, `role`, `is_active`, `created_at`, `updated_at`) VALUES
+(4, 'admin@gmail.com', '$2y$12$vNQOSpROHc/sWhMlq3sYD.fSo/HByC.O9uWHm73U4F8NZq6iujkdi', 'admin', 'Admin', 'Admin', 'ROLE_ADMIN', 1, '2017-10-02 22:57:29', '2017-10-02 22:57:29'); <br>
+
+
+Luego debe ingresar a la aplicacion en la siguiente ruta
+=======================================================
+http://localhost:8000 <br>
+
+Usuario: admin@gmail.com <br>
+Contraseña: 123456 <br>
